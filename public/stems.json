@@ -1,0 +1,219 @@
+{
+  "generatedAt": "2026-09-25T21:35:43.740Z",
+  "songs": [
+    {
+      "dir": "1．燃えよ",
+      "title": "燃えよ",
+      "bpm": 138,
+      "beatOffset": 0.693,
+      "stems": [
+        {
+          "name": "Bass",
+          "role": "bass",
+          "file": "stems/1．燃えよ/１．燃えよ_bass_mixed.mp3",
+          "src": "/stems/1．燃えよ/１．燃えよ_bass_mixed.mp3"
+        },
+        {
+          "name": "Drums",
+          "role": "drums",
+          "file": "stems/1．燃えよ/１．燃えよ_drums_mixed.mp3",
+          "src": "/stems/1．燃えよ/１．燃えよ_drums_mixed.mp3"
+        },
+        {
+          "name": "Guitars",
+          "role": "guitar",
+          "file": "stems/1．燃えよ/１．燃えよ_guitars_mixed.mp3",
+          "src": "/stems/1．燃えよ/１．燃えよ_guitars_mixed.mp3"
+        },
+        {
+          "name": "Other",
+          "role": "other",
+          "file": "stems/1．燃えよ/１．燃えよ_other_mixed.mp3",
+          "src": "/stems/1．燃えよ/１．燃えよ_other_mixed.mp3"
+        },
+        {
+          "name": "Piano",
+          "role": "piano",
+          "file": "stems/1．燃えよ/１．燃えよ_piano_mixed.mp3",
+          "src": "/stems/1．燃えよ/１．燃えよ_piano_mixed.mp3"
+        },
+        {
+          "name": "Vocals",
+          "role": "vocal",
+          "file": "stems/1．燃えよ/１．燃えよ_vocals_mixed.mp3",
+          "src": "/stems/1．燃えよ/１．燃えよ_vocals_mixed.mp3"
+        }
+      ]
+    },
+    {
+      "dir": "2．damn",
+      "title": "damn",
+      "bpm": 130,
+      "beatOffset": 1.22,
+      "stems": [
+        {
+          "name": "Bass",
+          "role": "bass",
+          "file": "stems/2．damn/2．damn_bass_mixed.mp3",
+          "src": "/stems/2．damn/2．damn_bass_mixed.mp3"
+        },
+        {
+          "name": "Drums",
+          "role": "drums",
+          "file": "stems/2．damn/2．damn_drums_mixed.mp3",
+          "src": "/stems/2．damn/2．damn_drums_mixed.mp3"
+        },
+        {
+          "name": "Guitars",
+          "role": "guitar",
+          "file": "stems/2．damn/2．damn_guitars_mixed.mp3",
+          "src": "/stems/2．damn/2．damn_guitars_mixed.mp3"
+        },
+        {
+          "name": "Other",
+          "role": "other",
+          "file": "stems/2．damn/2．damn_other_mixed.mp3",
+          "src": "/stems/2．damn/2．damn_other_mixed.mp3"
+        },
+        {
+          "name": "Piano",
+          "role": "piano",
+          "file": "stems/2．damn/2．damn_piano_mixed.mp3",
+          "src": "/stems/2．damn/2．damn_piano_mixed.mp3"
+        },
+        {
+          "name": "Vocals",
+          "role": "vocal",
+          "file": "stems/2．damn/2．damn_vocals_mixed.mp3",
+          "src": "/stems/2．damn/2．damn_vocals_mixed.mp3"
+        }
+      ]
+    },
+    {
+      "dir": "3．旅路",
+      "title": "旅路",
+      "bpm": 176,
+      "beatOffset": 2.505,
+      "stems": [
+        {
+          "name": "Bass",
+          "role": "bass",
+          "file": "stems/3．旅路/3．旅路_bass_mixed.mp3",
+          "src": "/stems/3．旅路/3．旅路_bass_mixed.mp3"
+        },
+        {
+          "name": "Drums",
+          "role": "drums",
+          "file": "stems/3．旅路/3．旅路_drums_mixed.mp3",
+          "src": "/stems/3．旅路/3．旅路_drums_mixed.mp3"
+        },
+        {
+          "name": "Guitars",
+          "role": "guitar",
+          "file": "stems/3．旅路/3．旅路_guitars_mixed.mp3",
+          "src": "/stems/3．旅路/3．旅路_guitars_mixed.mp3"
+        },
+        {
+          "name": "Piano",
+          "role": "piano",
+          "file": "stems/3．旅路/3．旅路_piano_mixed.mp3",
+          "src": "/stems/3．旅路/3．旅路_piano_mixed.mp3"
+        },
+        {
+          "name": "Vocals",
+          "role": "vocal",
+          "file": "stems/3．旅路/3．旅路_vocals_mixed.mp3",
+          "src": "/stems/3．旅路/3．旅路_vocals_mixed.mp3"
+        }
+      ]
+    },
+    {
+      "dir": "4．満ちてゆく",
+      "title": "満ちてゆく",
+      "bpm": 72,
+      "beatOffset": 2.62,
+      "stems": [
+        {
+          "name": "Bass",
+          "role": "bass",
+          "file": "stems/4．満ちてゆく/4．満ちてゆく_bass_mixed.mp3",
+          "src": "/stems/4．満ちてゆく/4．満ちてゆく_bass_mixed.mp3"
+        },
+        {
+          "name": "Drums",
+          "role": "drums",
+          "file": "stems/4．満ちてゆく/4．満ちてゆく_drums_mixed.mp3",
+          "src": "/stems/4．満ちてゆく/4．満ちてゆく_drums_mixed.mp3"
+        },
+        {
+          "name": "Guitars",
+          "role": "guitar",
+          "file": "stems/4．満ちてゆく/4．満ちてゆく_guitars_mixed.mp3",
+          "src": "/stems/4．満ちてゆく/4．満ちてゆく_guitars_mixed.mp3"
+        },
+        {
+          "name": "Other",
+          "role": "other",
+          "file": "stems/4．満ちてゆく/4．満ちてゆく_other_mixed.mp3",
+          "src": "/stems/4．満ちてゆく/4．満ちてゆく_other_mixed.mp3"
+        },
+        {
+          "name": "Piano",
+          "role": "piano",
+          "file": "stems/4．満ちてゆく/4．満ちてゆく_piano_mixed.mp3",
+          "src": "/stems/4．満ちてゆく/4．満ちてゆく_piano_mixed.mp3"
+        },
+        {
+          "name": "Vocals",
+          "role": "vocal",
+          "file": "stems/4．満ちてゆく/4．満ちてゆく_vocals_mixed.mp3",
+          "src": "/stems/4．満ちてゆく/4．満ちてゆく_vocals_mixed.mp3"
+        }
+      ]
+    },
+    {
+      "dir": "5．Hachikō",
+      "title": "Hachikō",
+      "bpm": 110,
+      "beatOffset": 0.99,
+      "stems": [
+        {
+          "name": "̄_bass",
+          "role": "bass",
+          "file": "stems/5．Hachikō/5．Hachikō_bass_mixed.mp3",
+          "src": "/stems/5．Hachikō/5．Hachikō_bass_mixed.mp3"
+        },
+        {
+          "name": "̄_drums",
+          "role": "drums",
+          "file": "stems/5．Hachikō/5．Hachikō_drums_mixed.mp3",
+          "src": "/stems/5．Hachikō/5．Hachikō_drums_mixed.mp3"
+        },
+        {
+          "name": "̄_guitars",
+          "role": "guitar",
+          "file": "stems/5．Hachikō/5．Hachikō_guitars_mixed.mp3",
+          "src": "/stems/5．Hachikō/5．Hachikō_guitars_mixed.mp3"
+        },
+        {
+          "name": "̄_other",
+          "role": "other",
+          "file": "stems/5．Hachikō/5．Hachikō_other_mixed.mp3",
+          "src": "/stems/5．Hachikō/5．Hachikō_other_mixed.mp3"
+        },
+        {
+          "name": "̄_piano",
+          "role": "piano",
+          "file": "stems/5．Hachikō/5．Hachikō_piano_mixed.mp3",
+          "src": "/stems/5．Hachikō/5．Hachikō_piano_mixed.mp3"
+        },
+        {
+          "name": "̄_vocals",
+          "role": "vocal",
+          "file": "stems/5．Hachikō/5．Hachikō_vocals_mixed.mp3",
+          "src": "/stems/5．Hachikō/5．Hachikō_vocals_mixed.mp3"
+        }
+      ]
+    }
+  ]
+}

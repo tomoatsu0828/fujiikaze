@@ -1,0 +1,2108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg-void: #03050a;
+  --color-bg-deep: #070a14;
+  --color-bg-surface: rgba(11, 16, 28, 0.75);
+  --color-bg-card: rgba(14, 21, 38, 0.85);
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-bright: rgba(255, 255, 255, 0.18);
+  --color-accent-emerald: #10b981;
+  --color-accent-cyan: #38bdf8;
+  --color-accent-amber: #f59e0b;
+  --color-accent-rose: #f43f5e;
+  --color-accent-purple: #a855f7;
+  --color-accent-indigo: #6366f1;
+  --color-text-main: #f8fafc;
+  --color-text-dim: #94a3b8;
+  --color-text-dark: #64748b;
+  --track-header-width: 260px; /* ポットノブ化によりスリムで洗練された幅 */
+  --font-mono: 'SF Mono', Monaco, Menlo, Consolas, 'Liberation Mono', Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--color-bg-void);
+  color: var(--color-text-main);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ==========================================================================
+   銀河・宇宙 背景エフェクト (Cosmic Galaxy Background)
+   ========================================================================== */
+.galaxy-stars-background {
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(1.5px 1.5px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 75px 120px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 150px 70px, #38bdf8, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 220px 200px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 300px 140px, #a855f7, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 400px 280px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 500px 90px, #38bdf8, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 620px 220px, rgba(255,255,255,0.6), rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 750px 160px, #f59e0b, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 850px 320px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 80% 15%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 50% 85%, rgba(56, 189, 248, 0.06) 0%, transparent 55%),
+    radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 45%),
+    linear-gradient(180deg, #020408 0%, #060914 50%, #03050a 100%);
+  background-repeat: repeat;
+  background-size: 900px 400px, 900px 400px, 900px 400px, 900px 400px, 900px 400px, 900px 400px, 900px 400px, 900px 400px, 900px 400px, 900px 400px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  pointer-events: none;
+  z-index: 0;
+  animation: cosmic-drift 60s linear infinite alternate;
+}
+
+@keyframes cosmic-drift {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.03) translate(-10px, -8px); }
+}
+
+.daw-app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   1. Transport Bar (Cosmic Frosted Glass)
+   ========================================================================== */
+.daw-transport-bar.cosmic-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 18px;
+  background: rgba(8, 12, 22, 0.82);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7), 0 1px 0 rgba(255, 255, 255, 0.08);
+  z-index: 50;
+}
+
+/* Project Hub (高視認性プロジェクト選択ボタン) */
+.daw-project-hub {
+  display: flex;
+  align-items: center;
+}
+
+.daw-project-trigger-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, rgba(20, 30, 52, 0.8) 0%, rgba(12, 18, 34, 0.9) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  border-radius: 9px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.daw-project-trigger-btn:hover {
+  background: linear-gradient(135deg, rgba(30, 45, 78, 0.95) 0%, rgba(18, 28, 52, 0.95) 100%);
+  border-color: rgba(56, 189, 248, 0.7);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.project-trigger-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.project-icon-box {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent-cyan);
+}
+
+.project-trigger-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-caption {
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: var(--color-accent-cyan);
+}
+
+.project-title-display {
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+  white-space: nowrap;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.project-trigger-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.project-bpm-chip {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-accent-amber);
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.project-change-arrow {
+  font-size: 10px;
+  font-weight: 700;
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 3px 6px;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   初回案内コーチマーク (プロジェクト切り替えガイダンス吹き出し)
+   ========================================================================== */
+.daw-project-hub {
+  position: relative;
+}
+
+.project-switcher-coachmark {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 150;
+  animation: coachmark-bounce 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes coachmark-bounce {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+.coachmark-pointer {
+  position: absolute;
+  top: -6px;
+  left: 28px;
+  width: 12px;
+  height: 12px;
+  background: #182648;
+  border-left: 1px solid #38bdf8;
+  border-top: 1px solid #38bdf8;
+  transform: rotate(45deg);
+  z-index: 2;
+}
+
+.coachmark-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, rgba(20, 32, 60, 0.98) 0%, rgba(10, 16, 32, 0.98) 100%);
+  border: 1px solid #38bdf8;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(56, 189, 248, 0.4);
+  padding: 10px 14px;
+  border-radius: 10px;
+  white-space: nowrap;
+  backdrop-filter: blur(12px);
+}
+
+.coachmark-sparkle {
+  color: #38bdf8;
+  font-size: 16px;
+  animation: sparkle-spin 2s linear infinite;
+}
+
+@keyframes sparkle-spin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); color: #f59e0b; }
+  100% { transform: rotate(360deg) scale(1); color: #38bdf8; }
+}
+
+.coachmark-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.coachmark-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+.coachmark-desc {
+  font-size: 10px;
+  color: #94a3b8;
+}
+
+.coachmark-ok-btn {
+  background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+  border: 1px solid #38bdf8;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  transition: all 0.15s ease;
+}
+
+.coachmark-ok-btn:hover {
+  background: #38bdf8;
+  color: #000;
+  box-shadow: 0 0 10px #38bdf8;
+}
+
+/* SET BEAT 1 ボタン */
+.sync-set-downbeat-btn {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 800;
+  color: #f43f5e;
+  background: rgba(244, 63, 94, 0.15);
+  border: 1px solid rgba(244, 63, 94, 0.5);
+  padding: 2px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 4px;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.sync-set-downbeat-btn:hover {
+  background: #f43f5e;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(244, 63, 94, 0.7);
+}
+
+.sync-set-downbeat-btn:active {
+  transform: scale(0.95);
+}
+
+/* ==========================================================================
+   Teenage Engineering & Cyberpunk Inspired Ultra-Crisp OLED Screen
+   ========================================================================== */
+.daw-lcd-display {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(180deg, #02050c 0%, #060b18 100%);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  box-shadow: 
+    inset 0 2px 10px rgba(0, 0, 0, 0.95), 
+    0 0 16px rgba(56, 189, 248, 0.12),
+    0 1px 0 rgba(255, 255, 255, 0.1);
+  border-radius: 9px;
+  padding: 5px 16px;
+  gap: 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 微細なスキャンラインエフェクト */
+.daw-lcd-display::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.015) 0px,
+    rgba(255, 255, 255, 0.015) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+}
+
+.lcd-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.lcd-section:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -9px;
+  top: 15%;
+  height: 70%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(56, 189, 248, 0.3), transparent);
+}
+
+.lcd-sub-label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.lcd-digits {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 800;
+  color: #38bdf8;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+.lcd-digits.lcd-highlight {
+  color: #4ade80;
+  text-shadow: 0 0 12px rgba(74, 222, 128, 0.7);
+}
+
+.lcd-divider { color: #475569; margin: 0 4px; }
+.lcd-total { color: #64748b; font-size: 12px; }
+
+.tempo-controller,
+.offset-stepper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.tempo-val {
+  color: #f59e0b;
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+}
+
+.offset-val {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 800;
+  color: #c084fc;
+  text-shadow: 0 0 10px rgba(192, 132, 252, 0.5);
+}
+
+.tempo-unit {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.tempo-steppers {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.step-btn {
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #94a3b8;
+  font-size: 7px;
+  padding: 2px 4px;
+  line-height: 1;
+  border-radius: 3px;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  transition: all 0.12s ease;
+}
+
+.step-btn:hover {
+  background: linear-gradient(180deg, #334155 0%, #1e293b 100%);
+  border-color: #38bdf8;
+  color: #38bdf8;
+  box-shadow: 0 0 6px rgba(56, 189, 248, 0.4);
+}
+
+.tap-tempo-btn {
+  background: linear-gradient(180deg, rgba(245, 158, 11, 0.25) 0%, rgba(180, 83, 9, 0.3) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.6);
+  color: #fef08a;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 3px 7px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 3px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.15s ease;
+}
+
+.tap-tempo-btn:hover {
+  background: linear-gradient(180deg, rgba(245, 158, 11, 0.45) 0%, rgba(217, 119, 6, 0.5) 100%);
+  border-color: #f59e0b;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+  transform: scale(1.04);
+}
+
+.tap-tempo-btn:active {
+  transform: scale(0.96);
+}
+
+/* ==========================================================================
+   Tactile Transport Buttons (航空宇宙・スタジオ機材の物理ボタン質感)
+   ========================================================================== */
+.daw-transport-controls {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.transport-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  background: linear-gradient(180deg, rgba(30, 41, 65, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: all 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.transport-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%);
+  border-radius: 8px 8px 0 0;
+  pointer-events: none;
+}
+
+.transport-btn:hover {
+  border-color: rgba(56, 189, 248, 0.6);
+  background: linear-gradient(180deg, rgba(45, 62, 98, 0.95) 0%, rgba(22, 33, 58, 1) 100%);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6), 0 0 12px rgba(56, 189, 248, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.transport-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7), inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Play Button: エメラルド〜シアンの高級サイバーグロー */
+.transport-btn.btn-play {
+  width: 48px;
+  height: 40px;
+  background: linear-gradient(180deg, #059669 0%, #047857 50%, #064e3b 100%);
+  border: 1px solid #10b981;
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6), 0 0 14px rgba(16, 185, 129, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.transport-btn.btn-play:hover {
+  background: linear-gradient(180deg, #10b981 0%, #059669 50%, #047857 100%);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.65), 0 0 24px rgba(16, 185, 129, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.transport-btn.btn-play.playing {
+  background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+  border-color: #34d399;
+  color: #ffffff;
+  box-shadow: 0 0 24px rgba(16, 185, 129, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  animation: play-neon-pulse 2s infinite ease-in-out;
+}
+
+@keyframes play-neon-pulse {
+  0%, 100% { box-shadow: 0 0 16px rgba(16, 185, 129, 0.6), 0 0 32px rgba(16, 185, 129, 0.25); }
+  50% { box-shadow: 0 0 28px rgba(16, 185, 129, 0.95), 0 0 48px rgba(16, 185, 129, 0.5); }
+}
+
+.transport-btn.btn-loop.active {
+  background: linear-gradient(180deg, #d97706 0%, #b45309 100%);
+  border-color: #f59e0b;
+  color: #ffffff;
+  box-shadow: 0 0 18px rgba(245, 158, 11, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* ==========================================================================
+   ⏱️ Metronome Station (重厚かつ精密なスタジオメトロノームモジュール)
+   ========================================================================== */
+.metro-control-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(180deg, rgba(16, 24, 44, 0.9) 0%, rgba(8, 12, 24, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 3px 8px;
+  border-radius: 10px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.transport-btn.btn-metro {
+  width: 34px;
+  height: 34px;
+}
+
+.transport-btn.btn-metro.active {
+  background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%);
+  border-color: #38bdf8;
+  color: #ffffff;
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.metro-beat-dots {
+  display: flex;
+  gap: 4px;
+  padding: 4px 6px;
+  background: #040710;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.metro-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.08s ease;
+}
+
+.metro-dot.hit-downbeat {
+  background: #38bdf8;
+  border-color: #7dd3fc;
+  box-shadow: 0 0 12px #38bdf8, 0 0 22px #38bdf8;
+  transform: scale(1.4);
+}
+
+.metro-dot.hit-upbeat {
+  background: #f59e0b;
+  border-color: #fde68a;
+  box-shadow: 0 0 10px #f59e0b, 0 0 18px #f59e0b;
+  transform: scale(1.25);
+}
+
+.metro-inline-vol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 52px;
+  gap: 1px;
+}
+
+.metro-vol-label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.8px;
+}
+
+.metro-slider {
+  width: 100%;
+}
+
+/* Zoom Controls */
+.daw-zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--color-border);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.zoom-label {
+  font-size: 9px;
+  font-weight: 800;
+  color: var(--color-text-dark);
+}
+
+.zoom-btn-group {
+  display: flex;
+  gap: 2px;
+}
+
+.zoom-btn {
+  background: #182236;
+  border: 1px solid #334155;
+  color: #cbd5e1;
+  padding: 3px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zoom-btn:hover:not(:disabled) {
+  background: #24324f;
+  color: #fff;
+}
+
+.zoom-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.zoom-btn.btn-fit {
+  font-size: 9px;
+  font-weight: 800;
+  background: #0b1324;
+  color: #38bdf8;
+}
+
+/* ==========================================================================
+   Master Bus & Dual Precision Stereo Meter
+   ========================================================================== */
+.daw-master-section {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.daw-master-fader-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: linear-gradient(180deg, rgba(14, 22, 40, 0.95) 0%, rgba(6, 10, 20, 0.98) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  padding: 5px 10px;
+  border-radius: 9px;
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    0 0 12px rgba(56, 189, 248, 0.15);
+}
+
+.master-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.master-title {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: #94a3b8;
+}
+
+.master-db {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  color: #38bdf8;
+  text-shadow: 0 0 6px rgba(56, 189, 248, 0.6);
+}
+
+.master-fader-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.master-slider {
+  width: 95px;
+}
+
+.master-dual-meter {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 32px;
+  background: #020409;
+  padding: 3px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.9);
+}
+
+.meter-channel {
+  height: 6px;
+  background: #0a0f1d;
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.meter-channel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.65) 3px,
+    rgba(0, 0, 0, 0.65) 4px
+  );
+  pointer-events: none;
+}
+
+.meter-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #10b981 0%, #38bdf8 65%, #f59e0b 85%, #f43f5e 100%);
+  transition: width 0.04s ease;
+  box-shadow: 0 0 6px currentColor;
+}
+
+
+/* ==========================================================================
+   2. Cosmic Project Browser Modal (銀河プロジェクトランチャー)
+   ========================================================================== */
+.daw-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 4, 8, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  animation: modal-fade-in 0.25s ease-out;
+}
+
+@keyframes modal-fade-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.daw-project-modal.cosmic-modal {
+  width: 92%;
+  max-width: 860px;
+  background: linear-gradient(135deg, rgba(14, 21, 40, 0.95) 0%, rgba(8, 12, 24, 0.98) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 40px rgba(56, 189, 248, 0.15);
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+}
+
+.cosmic-stardust-layer {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.project-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--color-border);
+  background: rgba(18, 26, 48, 0.6);
+  position: relative;
+  z-index: 10;
+}
+
+.modal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cosmic-icon-orb {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #38bdf8;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.3);
+}
+
+.cosmic-eyebrow {
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #38bdf8;
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.modal-subtitle {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.modal-close-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.modal-close-btn:hover {
+  background: rgba(244, 63, 94, 0.25);
+  color: #f43f5e;
+}
+
+.project-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+  gap: 16px;
+  padding: 24px;
+  max-height: 68vh;
+  overflow-y: auto;
+  position: relative;
+  z-index: 10;
+}
+
+.project-card.cosmic-card {
+  background: rgba(14, 20, 36, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.project-card.cosmic-card:hover {
+  background: rgba(22, 32, 58, 0.9);
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.2);
+  transform: translateY(-2px);
+}
+
+.project-card.cosmic-card.active {
+  border-color: #22c55e;
+  background: rgba(18, 34, 52, 0.9);
+  box-shadow: 0 0 24px rgba(34, 197, 94, 0.3);
+}
+
+.project-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.project-index-badge {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 800;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  padding: 3px 6px;
+  border-radius: 5px;
+}
+
+.project-card-title-group { flex: 1; }
+.project-card-title { font-size: 17px; font-weight: 800; color: #fff; }
+.project-card-dir { font-size: 11px; color: #64748b; font-family: var(--font-mono); }
+
+.active-badge {
+  font-size: 9px;
+  font-weight: 800;
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.15);
+  border: 1px solid rgba(74, 222, 128, 0.4);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.project-card-meta {
+  display: flex;
+  gap: 16px;
+  background: rgba(6, 10, 18, 0.6);
+  padding: 8px 12px;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.meta-item { display: flex; flex-direction: column; }
+.meta-label { font-size: 8px; font-weight: 800; color: #64748b; letter-spacing: 0.5px; }
+.meta-val { font-size: 13px; font-weight: 700; color: #cbd5e1; font-family: var(--font-mono); }
+.meta-val.tempo-badge { color: #f59e0b; }
+.meta-val.sync-badge { color: #a855f7; }
+
+.project-stems-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.stem-tag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #94a3b8;
+}
+
+.stem-tag.role-vocal { color: #f43f5e; background: rgba(244, 63, 94, 0.14); }
+.stem-tag.role-drums { color: #f97316; background: rgba(249, 115, 22, 0.14); }
+.stem-tag.role-bass { color: #06b6d4; background: rgba(6, 182, 212, 0.14); }
+.stem-tag.role-guitar { color: #a855f7; background: rgba(168, 85, 247, 0.14); }
+.stem-tag.role-piano { color: #38bdf8; background: rgba(56, 189, 248, 0.14); }
+
+.card-select-btn {
+  width: 100%;
+  padding: 9px;
+  border-radius: 7px;
+  background: linear-gradient(90deg, #0284c7 0%, #0369a1 100%);
+  border: 1px solid #38bdf8;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.card-select-btn:hover {
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.5);
+}
+
+.card-select-btn.current {
+  background: rgba(34, 197, 94, 0.25);
+  border-color: #22c55e;
+  color: #4ade80;
+  cursor: default;
+}
+
+/* ==========================================================================
+   3. Timeline & Ruler
+   ========================================================================== */
+.daw-main-content {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.daw-timeline-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.daw-timeline-scroll-area {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: auto;
+  position: relative;
+  background-color: rgba(4, 7, 14, 0.95);
+}
+
+.daw-timeline-canvas-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  position: relative;
+}
+
+/* Sticky Header & Ruler */
+.daw-ruler-sticky-header {
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: #0b1120;
+  border-bottom: 1px solid var(--color-border);
+  height: 38px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.daw-header-corner {
+  width: var(--track-header-width);
+  min-width: var(--track-header-width);
+  background: #0e1526;
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  position: sticky;
+  left: 0;
+  z-index: 45;
+}
+
+.corner-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #64748b;
+}
+
+.daw-ruler-track-lane {
+  flex: 1;
+  position: relative;
+  height: 100%;
+}
+
+.daw-ruler {
+  position: relative;
+  height: 100%;
+  background: linear-gradient(180deg, #0d1424 0%, #070b14 100%);
+  cursor: crosshair;
+}
+
+/* Loop Region */
+.ruler-loop-region {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: rgba(234, 179, 8, 0.24);
+  border-left: 2px solid #eab308;
+  border-right: 2px solid #eab308;
+  z-index: 10;
+  cursor: grab;
+}
+
+.ruler-loop-region.disabled {
+  background: rgba(148, 163, 184, 0.12);
+  border-color: #64748b;
+}
+
+.loop-handle {
+  position: absolute;
+  top: 0;
+  width: 8px;
+  height: 12px;
+  background: #eab308;
+  cursor: ew-resize;
+  border-radius: 0 0 2px 2px;
+}
+
+.loop-handle.left { left: 0; }
+.loop-handle.right { right: 0; }
+
+.loop-bar-stripe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #eab308;
+}
+
+/* Ticks */
+.ruler-ticks-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ruler-bar-tick {
+  position: absolute;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.ruler-bar-tick.major {
+  height: 18px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.ruler-bar-tick.major.downbeat {
+  background: #38bdf8;
+  height: 22px;
+  width: 2px;
+}
+
+.ruler-bar-tick.minor {
+  height: 10px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.ruler-bar-num {
+  position: absolute;
+  top: -18px;
+  left: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.ruler-bar-num.downbeat-num {
+  color: #38bdf8;
+  font-weight: 800;
+}
+
+.ruler-beat-tick {
+  position: absolute;
+  bottom: 0;
+  width: 1px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Playhead */
+.ruler-playhead-cursor {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  z-index: 25;
+  pointer-events: none;
+}
+
+.ruler-cursor-pin {
+  position: absolute;
+  top: 22px;
+  left: -5px;
+  width: 10px;
+  height: 12px;
+  background: #f43f5e;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+}
+
+.ruler-cursor-badge {
+  position: absolute;
+  top: 4px;
+  left: -20px;
+  background: #f43f5e;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 4px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.daw-playhead-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #f43f5e;
+  z-index: 30;
+  pointer-events: auto;
+  cursor: ew-resize;
+  left: var(--track-header-width);
+}
+
+.playhead-glow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -3px;
+  width: 8px;
+  background: rgba(244, 63, 94, 0.35);
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   4. Tracks Body & Rows
+   ========================================================================== */
+.daw-tracks-body {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-bottom: 80px; /* モバイルドック用の余白 */
+}
+
+.daw-track-row {
+  display: flex;
+  height: 88px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(6, 9, 16, 0.9);
+  position: relative;
+  transition: background 0.15s ease;
+}
+
+.daw-track-row:hover { background: rgba(12, 18, 32, 0.98); }
+.daw-track-row.track-muted { opacity: 0.4; }
+.daw-track-row.track-solo { background: rgba(16, 26, 48, 0.98); }
+
+/* Left Track Header (Mixer Channel) */
+.daw-track-header {
+  width: var(--track-header-width);
+  min-width: var(--track-header-width);
+  display: flex;
+  background: linear-gradient(90deg, #0d1424 0%, #090e1a 100%);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  left: 0;
+  z-index: 20;
+  box-shadow: 3px 0 12px rgba(0, 0, 0, 0.5);
+}
+
+.track-color-strip {
+  width: 5px;
+  height: 100%;
+}
+
+.track-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8px 12px;
+  min-width: 0;
+}
+
+.track-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.track-icon {
+  display: flex;
+  align-items: center;
+  color: var(--track-color, #94a3b8);
+  filter: drop-shadow(0 0 6px var(--track-color, rgba(56, 189, 248, 0.4)));
+}
+
+.track-name {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.3px;
+}
+
+.track-role-badge {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 800;
+  color: var(--track-color, #94a3b8);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+/* Track Controls Grid (整然とした水平配置) */
+.track-controls-grid {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ms-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ==========================================================================
+   Tactile Console Buttons: Solo & Mute (スタジオ卓の電照式ボタンスイッチ)
+   ========================================================================== */
+.daw-btn-ms {
+  width: 24px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, #182236 0%, #0d1524 100%);
+  color: #64748b;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.14s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.daw-btn-ms:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.daw-btn-ms:active {
+  transform: translateY(1px);
+}
+
+/* MUTE: スタジオ・クリムゾンレッド LED */
+.daw-btn-ms.btn-mute {
+  color: #991b1b;
+  background: linear-gradient(180deg, rgba(35, 15, 20, 0.9) 0%, rgba(20, 8, 12, 0.95) 100%);
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+.daw-btn-ms.btn-mute:hover {
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.5);
+}
+
+.daw-btn-ms.btn-mute.active {
+  background: linear-gradient(180deg, #f43f5e 0%, #be123c 100%);
+  border-color: #fda4af;
+  color: #ffffff;
+  font-weight: 900;
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* SOLO: スタジオ・アンバーゴールド LED */
+.daw-btn-ms.btn-solo {
+  color: #92400e;
+  background: linear-gradient(180deg, rgba(35, 25, 10, 0.9) 0%, rgba(20, 14, 5, 0.95) 100%);
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+.daw-btn-ms.btn-solo:hover {
+  color: #f59e0b;
+  border-color: rgba(245, 158, 11, 0.5);
+}
+
+.daw-btn-ms.btn-solo.active {
+  background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%);
+  border-color: #fef08a;
+  color: #1a0f00;
+  font-weight: 900;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* PAN コントロール (文字とノブの重なりを完全排除) */
+.pan-control-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 44px;
+  gap: 3px;
+}
+
+/* VOL コントロール (文字とフェーダーの重なりを完全排除) */
+.vol-control-group {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vol-slider-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.control-label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.8px;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.control-val {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  color: #38bdf8;
+  text-align: center;
+  background: rgba(4, 7, 16, 0.95);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  padding: 1px 4px;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.8);
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   Ultra-Modern Brushed Aluminum & Neon Faders (削り出しメタルフェーダー)
+   ========================================================================== */
+.daw-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: linear-gradient(180deg, #02040a 0%, #0a1020 100%);
+  border-radius: 3px;
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  height: 5px;
+  cursor: pointer;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8), 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: all 0.15s ease;
+  position: relative;
+  /* ノブの上下はみ出しを吸収する必須マージン */
+  margin: 6px 0;
+}
+
+.daw-slider:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+}
+
+/* Webkit Fader Thumb (端正なプロポーション: 幅10px x 高さ18px) */
+.daw-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 18px;
+  border-radius: 3px;
+  background: 
+    linear-gradient(90deg, transparent 40%, #38bdf8 45%, #38bdf8 55%, transparent 60%),
+    linear-gradient(180deg, #e2e8f0 0%, #94a3b8 35%, #475569 75%, #1e293b 100%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  cursor: ew-resize;
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.8), 
+    0 0 0 1px rgba(0, 0, 0, 0.7), 
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+.daw-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.12);
+  border-color: #38bdf8;
+  box-shadow: 
+    0 3px 8px rgba(0, 0, 0, 0.85), 
+    0 0 10px rgba(56, 189, 248, 0.8), 
+    inset 0 1px 0 #ffffff;
+}
+
+.daw-slider::-webkit-slider-thumb:active {
+  transform: scale(1.15);
+  background: 
+    linear-gradient(90deg, transparent 40%, #ffffff 45%, #ffffff 55%, transparent 60%),
+    linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.95), inset 0 1px 0 #ffffff;
+}
+
+/* Firefox Fader Thumb */
+.daw-slider::-moz-range-thumb {
+  width: 10px;
+  height: 18px;
+  border-radius: 3px;
+  background: 
+    linear-gradient(90deg, transparent 40%, #38bdf8 45%, #38bdf8 55%, transparent 60%),
+    linear-gradient(180deg, #e2e8f0 0%, #94a3b8 35%, #475569 75%, #1e293b 100%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  cursor: ew-resize;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.8), inset 0 1px 0 #ffffff;
+}
+
+.pan-slider { width: 100%; }
+.vol-slider { width: 100%; }
+
+/* 精密セグメント風 Track VU Meter */
+.track-vu-meter {
+  width: 8px;
+  height: 44px;
+  background: #020409;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
+  position: relative;
+}
+
+/* 目盛りグリッドラインオーバーレイ */
+.track-vu-meter::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.6) 3px,
+    rgba(0, 0, 0, 0.6) 4px
+  );
+  pointer-events: none;
+}
+
+.track-vu-fill {
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(0deg, #10b981 0%, #38bdf8 65%, #f59e0b 85%, #f43f5e 100%);
+  transition: height 0.04s ease;
+  box-shadow: 0 0 6px currentColor;
+}
+
+/* Waveform Lane */
+.daw-track-wave-lane {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  background: #050810;
+}
+
+.daw-waveform-container { position: relative; }
+.daw-waveform-canvas { display: block; cursor: crosshair; }
+
+/* ==========================================================================
+   常設入力トラック (AUDIO INPUT TRACK)
+   ========================================================================== */
+.input-track-row {
+  border-top: 1px solid rgba(16, 185, 129, 0.25);
+  background: rgba(5, 12, 16, 0.85);
+}
+
+.input-track-row.active {
+  background: rgba(6, 18, 22, 0.95);
+}
+
+.input-monitor-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #10b981;
+  font-size: 8px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.input-monitor-btn.monitoring {
+  background: rgba(244, 63, 94, 0.2);
+  border-color: #f43f5e;
+  color: #fecaca;
+  animation: pulse-monitor 1.5s infinite;
+}
+
+@keyframes pulse-monitor {
+  0%, 100% { box-shadow: 0 0 6px rgba(244, 63, 94, 0.4); }
+  50% { box-shadow: 0 0 14px rgba(244, 63, 94, 0.8); }
+}
+
+.monitor-indicator {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.input-wave-lane { cursor: pointer; }
+
+.input-active-badge {
+  position: absolute;
+  bottom: 4px;
+  left: 8px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  color: #10b981;
+  text-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pulse-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulse-dot 1s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+.input-standby-hint {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  font-size: 11px;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.arm-indicator-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+/* ==========================================================================
+   5. Mobile Transport Dock (スマホ用ボトム固定トランスポート)
+   ========================================================================== */
+.daw-mobile-dock {
+  display: none; /* デスクトップでは非表示 */
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 64px;
+  background: rgba(6, 9, 16, 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid var(--color-border-bright);
+  box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.7);
+  z-index: 100;
+  padding: 8px 12px max(10px, env(safe-area-inset-bottom, 10px));
+  align-items: center;
+  justify-content: space-around;
+}
+
+.dock-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(30, 42, 68, 0.9) 0%, rgba(14, 20, 36, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #cbd5e1;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: all 0.15s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.dock-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.dock-btn:active {
+  transform: scale(0.92);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.dock-btn.btn-play-large {
+  width: 52px;
+  height: 46px;
+  background: linear-gradient(180deg, #10b981 0%, #059669 60%, #047857 100%);
+  border: 1px solid #34d399;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6), 0 0 16px rgba(16, 185, 129, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.dock-btn.btn-play-large.playing {
+  background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+  border-color: #6ee7b7;
+  box-shadow: 0 0 24px rgba(16, 185, 129, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  animation: play-neon-pulse 2s infinite ease-in-out;
+}
+
+.dock-btn.active-loop {
+  background: linear-gradient(180deg, #f59e0b 0%, #b45309 100%);
+  border-color: #fef08a;
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.dock-btn.active-metro {
+  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+  border-color: #bae6fd;
+  color: #ffffff;
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* ==========================================================================
+   6. Status Bar (Footer)
+   ========================================================================== */
+.daw-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 18px;
+  background: rgba(4, 7, 14, 0.95);
+  border-top: 1px solid var(--color-border);
+  font-size: 11px;
+  color: #64748b;
+  z-index: 50;
+}
+
+.status-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-indicator.online {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px #22c55e;
+}
+
+.status-bpm-tag {
+  font-family: var(--font-mono);
+  color: var(--color-accent-amber);
+}
+
+.status-sample-rate {
+  font-family: var(--font-mono);
+  background: #0c1220;
+  padding: 1px 6px;
+  border-radius: 4px;
+  color: #94a3b8;
+}
+
+.status-shortcut-hint { color: #475569; }
+.status-engine-badge { font-family: var(--font-mono); color: var(--color-accent-cyan); }
+
+/* ==========================================================================
+   7. Empty & Loading States (Cosmic)
+   ========================================================================== */
+.cosmic-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 16px;
+  text-align: center;
+  padding: 20px;
+}
+
+.empty-nebula-orb {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(168, 85, 247, 0.15) 70%, transparent 100%);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #38bdf8;
+  animation: orb-pulse 4s infinite ease-in-out;
+}
+
+@keyframes orb-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 24px rgba(56, 189, 248, 0.3); }
+  50% { transform: scale(1.08); box-shadow: 0 0 36px rgba(168, 85, 247, 0.5); }
+}
+
+.empty-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #fff;
+}
+
+.empty-desc {
+  font-size: 13px;
+  color: #94a3b8;
+  max-width: 400px;
+}
+
+.cosmic-launch-btn {
+  background: linear-gradient(90deg, #0284c7 0%, #7c3aed 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 12px 28px;
+  border-radius: 9px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(56, 189, 248, 0.3);
+  transition: all 0.2s ease;
+}
+
+.cosmic-launch-btn:hover {
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.6);
+  transform: translateY(-2px);
+}
+
+.cosmic-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(56, 189, 248, 0.15);
+  border-top-color: #38bdf8;
+  border-right-color: #a855f7;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.daw-loading-overlay.cosmic-loader {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 4, 8, 0.85);
+  backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.loading-card.cosmic-glass-card {
+  background: rgba(14, 20, 36, 0.95);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 28px 36px;
+  border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 30px rgba(56, 189, 248, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 320px;
+}
+
+.loading-title { font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+.loading-sub { font-size: 12px; color: #94a3b8; margin-bottom: 16px; }
+
+.loading-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: #111827;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.loading-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #38bdf8, #a855f7);
+  transition: width 0.15s ease;
+}
+
+.loading-pct {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 800;
+  color: #38bdf8;
+}
+
+.daw-error-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(80, 10, 20, 0.9);
+  border-bottom: 1px solid #f43f5e;
+  color: #fecaca;
+  padding: 8px 16px;
+  font-size: 12px;
+  z-index: 100;
+}
+
+.error-content { display: flex; align-items: center; gap: 8px; }
+.error-glow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f43f5e;
+  box-shadow: 0 0 8px #f43f5e;
+}
+
+.error-close-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fca5a5;
+  padding: 2px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   8. 完全レスポンシブ対応 (スマホ縦画面最適化)
+   ========================================================================== */
+@media (max-width: 768px) {
+  :root {
+    --track-header-width: 170px;
+  }
+
+  .daw-transport-bar.cosmic-bar {
+    padding: 6px 10px;
+    gap: 8px;
+    justify-content: space-between;
+    overflow-x: auto;
+  }
+
+  .daw-project-trigger-btn {
+    padding: 4px 8px;
+    gap: 6px;
+  }
+
+  .project-title-display {
+    max-width: 80px;
+    font-size: 12px;
+  }
+
+  /* スマホではトップバーの重たいコントロールをスリム化 */
+  .daw-transport-controls {
+    display: none; /* スマホでは下部固定の Mobile Dock に集約！ */
+  }
+
+  .daw-zoom-controls {
+    display: none;
+  }
+
+  .lcd-section.lcd-timecode,
+  .lcd-section.lcd-sync {
+    display: none;
+  }
+
+  .daw-lcd-display {
+    padding: 3px 8px;
+    gap: 8px;
+  }
+
+  .lcd-digits {
+    font-size: 12px;
+  }
+
+  .master-slider {
+    width: 50px;
+  }
+
+  .master-dual-meter {
+    display: none;
+  }
+
+  /* 下部固定のモバイルトランスポートバーを表示 */
+  .daw-mobile-dock {
+    display: flex;
+  }
+
+  .daw-status-bar {
+    display: none; /* スマホではドックと重なるため非表示 */
+  }
+
+  /* トラックヘッダーの簡素化 */
+  .pan-control-group {
+    display: none;
+  }
+
+  .track-controls-grid {
+    gap: 4px;
+  }
+
+    .project-cards-grid {
+    grid-template-columns: 1fr;
+    padding: 12px;
+  }
+}
+
+/* ==========================================================================
+   HeroUI Slider 垂直センタリング完全補正 (Thumb Center Alignment)
+   ========================================================================== */
+[data-slot="track-wrapper"] {
+  display: flex !important;
+  align-items: center !important;
+  position: relative !important;
+}
+
+[data-slot="track"] {
+  align-self: center !important;
+  margin: 0 !important;
+}
+
+[data-slot="thumb"] {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  margin: 0 !important;
+}
+
+/* ==========================================================================
+   DAW トランスポート & モバイルドック アイコン完全幾何学的センタリング
+   ========================================================================== */
+.daw-transport-bar button,
+.daw-mobile-dock button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+.daw-transport-bar button > *,
+.daw-mobile-dock button > * {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: auto !important;
+}
+
+.daw-transport-bar button svg,
+.daw-mobile-dock button svg {
+  display: block !important;
+  margin: auto !important;
+  flex-shrink: 0 !important;
+}
+
+
