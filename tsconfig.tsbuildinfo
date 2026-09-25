@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/audio.ts","./src/engine.ts","./src/main.tsx","./src/types.ts","./src/vite-env.d.ts","./src/components/playhead.tsx","./src/components/ruler.tsx","./src/components/timeline.tsx","./src/components/trackrow.tsx","./src/components/waveform.tsx"],"errors":true,"version":"5.9.3"}
