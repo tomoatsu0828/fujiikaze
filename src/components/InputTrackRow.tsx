@@ -141,7 +141,7 @@ export default function InputTrackRow({
   return (
     <div
       className={`daw-track-row flex flex-row items-stretch border-b border-white/[0.08] transition-colors relative ${
-        inputMuted ? 'track-muted opacity-50' : ''
+        inputMuted ? 'track-muted' : ''
       } ${inputSolo ? 'track-solo' : ''}`}
       style={{
         '--track-color': ROLE_COLORS.input,
@@ -166,7 +166,11 @@ export default function InputTrackRow({
               <IconMic size={16} />
             </div>
             <div className="flex flex-col min-w-0">
-              <span className="font-bold text-xs sm:text-sm text-emerald-200 truncate tracking-wide leading-tight">
+              <span
+                className={`font-bold text-xs sm:text-sm text-emerald-200 truncate tracking-wide leading-tight transition-opacity ${
+                  inputMuted ? 'opacity-50' : 'opacity-100'
+                }`}
+              >
                 AUDIO IN
               </span>
               <span className="text-[9px] font-mono font-semibold tracking-wider uppercase text-emerald-400/90">
@@ -197,15 +201,15 @@ export default function InputTrackRow({
 
         {/* コントロール群 (MUTE, SOLO, ポットノブPAN, GAIN, VU) */}
         <div className="flex items-center gap-1.5 pl-2">
-          {/* MUTE / SOLO ボタン */}
+          {/* MUTE / SOLO ボタン (プロ仕様 高視認性自照式LEDスイッチ) */}
           <div className="flex flex-col gap-1 flex-shrink-0">
             <Button
               isIconOnly
               size="sm"
-              className={`w-6 h-5 min-w-0 p-0 text-[10px] font-bold rounded ${
+              className={`w-7 h-[22px] min-w-0 p-0 text-[11px] font-black rounded transition-all duration-150 ${
                 inputMuted
-                  ? 'bg-rose-600 text-white shadow-[0_0_8px_rgba(244,63,94,0.6)]'
-                  : 'bg-white/[0.07] text-slate-400 hover:text-white hover:bg-white/[0.12]'
+                  ? 'bg-gradient-to-b from-rose-500 via-rose-600 to-rose-700 text-white border-2 border-rose-200 shadow-[0_0_18px_rgba(244,63,94,1.0),inset_0_1px_2px_rgba(255,255,255,0.6)] scale-105 z-10'
+                  : 'bg-[#220a10] border-2 border-rose-500/60 text-rose-400 hover:border-rose-400 hover:bg-rose-900/60 hover:text-white shadow-sm'
               }`}
               onClick={onMuteToggle}
               title="Mute Input"
@@ -215,10 +219,10 @@ export default function InputTrackRow({
             <Button
               isIconOnly
               size="sm"
-              className={`w-6 h-5 min-w-0 p-0 text-[10px] font-bold rounded ${
+              className={`w-7 h-[22px] min-w-0 p-0 text-[11px] font-black rounded transition-all duration-150 ${
                 inputSolo
-                  ? 'bg-amber-500 text-black shadow-[0_0_8px_rgba(245,158,11,0.6)]'
-                  : 'bg-white/[0.07] text-slate-400 hover:text-white hover:bg-white/[0.12]'
+                  ? 'bg-gradient-to-b from-amber-300 via-amber-400 to-amber-500 text-slate-950 border-2 border-amber-100 shadow-[0_0_20px_rgba(245,158,11,1.0),inset_0_1px_2px_rgba(255,255,255,0.8)] scale-105 z-10'
+                  : 'bg-[#221808] border-2 border-amber-500/60 text-amber-400 hover:border-amber-400 hover:bg-amber-900/60 hover:text-white shadow-sm'
               }`}
               onClick={onSoloToggle}
               title="Solo Input"

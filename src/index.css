@@ -1272,7 +1272,7 @@ html, body, #root {
 }
 
 .daw-track-row:hover { background: rgba(12, 18, 32, 0.98); }
-.daw-track-row.track-muted { opacity: 0.4; }
+.daw-track-row.track-muted .daw-track-wave-lane { opacity: 0.35; filter: grayscale(80%); }
 .daw-track-row.track-solo { background: rgba(16, 26, 48, 0.98); }
 
 /* Left Track Header (Mixer Channel) */
@@ -1989,7 +1989,7 @@ html, body, #root {
     padding: 6px 10px;
     gap: 8px;
     justify-content: space-between;
-    overflow-x: auto;
+    overflow: visible;
   }
 
   .daw-project-trigger-btn {
@@ -2104,5 +2104,20 @@ html, body, #root {
   margin: auto !important;
   flex-shrink: 0 !important;
 }
+
+/* ==========================================================================
+   トランスポートバー & ポップアップ最前面・クリッピング防止保証
+   ========================================================================== */
+.daw-transport-bar {
+  position: relative !important;
+  z-index: 60 !important;
+  overflow: visible !important;
+}
+
+.daw-main-content {
+  position: relative !important;
+  z-index: 10 !important;
+}
+
 
 

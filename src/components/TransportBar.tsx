@@ -142,9 +142,9 @@ export default function TransportBar({
   const bpmDisplay = bpm.toFixed(bpm % 1 === 0 ? 0 : 1);
 
   return (
-    <header className="daw-transport-bar bg-[#060813]/90 backdrop-blur-xl border-b border-white/[0.08] px-3 py-2 flex items-center justify-between gap-2.5 select-none relative z-30 shadow-lg shadow-black/40">
+    <header className="daw-transport-bar bg-[#060813]/95 backdrop-blur-xl border-b border-white/[0.08] px-3 py-2 flex items-center justify-between gap-2.5 select-none relative z-50 shadow-lg shadow-black/40 overflow-visible">
       {/* 1. 高視認性プロジェクトスイッチャー + 初回案内コーチマーク */}
-      <div className="relative flex items-center flex-shrink-0">
+      <div className="relative flex items-center flex-shrink-0 z-50">
         <Button
           variant="bordered"
           size="sm"
@@ -177,27 +177,27 @@ export default function TransportBar({
           </div>
         </Button>
 
-        {/* 初回ユーザー向けガイダンス吹き出し (プロジェクトボタンの真下に綺麗に収まる) */}
+        {/* 初回ユーザー向けガイダンス吹き出し (最前面 z-[100] でタイムラインの上に完全浮揚) */}
         {showProjectHint && (
           <div
-            className="absolute left-0 top-full mt-2.5 z-50 animate-bounce cursor-pointer w-[280px] sm:w-[320px]"
+            className="absolute left-0 top-full mt-2.5 z-[100] animate-bounce cursor-pointer w-[310px] sm:w-[360px] max-w-[calc(100vw-16px)] drop-shadow-[0_15px_30px_rgba(0,0,0,0.9)]"
             onClick={handleTriggerProject}
           >
-            <div className="relative bg-gradient-to-r from-violet-950 via-slate-900 to-indigo-950 border border-violet-400/50 rounded-xl p-3 shadow-[0_0_25px_rgba(139,92,246,0.6)] backdrop-blur-xl flex items-center gap-2.5">
-              <div className="w-2.5 h-2.5 rotate-45 bg-violet-950 border-t border-l border-violet-400/50 absolute -top-1.5 left-6" />
-              <span className="text-violet-400 text-lg flex-shrink-0">✦</span>
-              <div className="flex flex-col flex-1 min-w-0">
-                <span className="text-xs font-bold text-white tracking-wide truncate">
+            <div className="relative bg-gradient-to-r from-violet-950 via-slate-900 to-indigo-950 border border-violet-400/70 rounded-xl p-3 shadow-[0_0_30px_rgba(139,92,246,0.7)] backdrop-blur-2xl flex items-center gap-2.5">
+              <div className="w-2.5 h-2.5 rotate-45 bg-violet-950 border-t border-l border-violet-400/70 absolute -top-1.5 left-6" />
+              <span className="text-violet-300 text-lg flex-shrink-0 animate-pulse">✦</span>
+              <div className="flex flex-col flex-1 min-w-0 pr-1">
+                <span className="text-xs font-bold text-white tracking-wide leading-snug">
                   ここをタップしてプロジェクト切替！
                 </span>
-                <span className="text-[10px] text-slate-300 truncate">
+                <span className="text-[10px] text-slate-300 leading-tight mt-0.5">
                   全5曲のマルチトラックをいつでも選べます
                 </span>
               </div>
               <Button
                 size="sm"
                 variant="flat"
-                className="bg-violet-500 text-white font-semibold text-xs h-6 px-2 flex-shrink-0"
+                className="bg-violet-500 hover:bg-violet-400 text-white font-bold text-xs h-7 px-3 flex-shrink-0 shadow-md"
                 onClick={handleDismissHint}
               >
                 OK
